@@ -1,4 +1,5 @@
 import customtkinter
+import sqlite3
 
 class TelaCadastro(customtkinter.CTkFrame):
     def __init__(self, master, voltar_inicio):
@@ -35,6 +36,20 @@ class TelaCadastro(customtkinter.CTkFrame):
         print(self.tipo.get())
         print(self.marca.get())
         print(self.nome.get())
+
+#    Adicionando ao banco de dados
+        conexao = sqlite3.connect("estoque.db")
+        cursor = conexao.cursor()
+
+        cursor.execute("""INSERT INTO produtos (categoria, tipo, marca, nome) VALUES (?, ?, ?, ?) """,
+             (self.categoria.get(),
+                        self.tipo.get(),
+                        self.marca.get(),
+                        self.nome.get()))
+
+        conexao.commit()
+        conexao.close()
+        print("Produto salvo!")
 
 
 

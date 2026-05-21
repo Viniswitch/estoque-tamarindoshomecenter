@@ -1,5 +1,5 @@
 import customtkinter
-
+import Banco_De_Dados.database
 from Telas.Tela_Inicial import TelaInicial
 from Telas.Tela_Cadastro import TelaCadastro
 from Telas.Tela_Estoque import TelaEstoque
