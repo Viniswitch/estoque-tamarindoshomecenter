@@ -22,7 +22,7 @@ class TelaEstoque(customtkinter.CTkFrame):
         produtos = cursor.fetchall()
         for produto in produtos:
             texto = f"""ID: {produto[0]}, Categoria: {produto[1]}, Tipo: {produto[2]}, Marca: {produto[3]},Nome: {produto[4]}
-                     , codigo: {produto[5]}"""
+                     , codigo: {produto[5]}, quantidade: {produto[6]}"""
             label_produto = customtkinter.CTkLabel(self, text=texto, font=("Arial", 18), justify="left")
             label_produto.pack(pady=10)
 
