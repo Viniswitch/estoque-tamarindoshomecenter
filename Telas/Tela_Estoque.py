@@ -17,15 +17,16 @@ class TelaEstoque(customtkinter.CTkFrame):
 
 #    Buscar produtos
         cursor.execute("SELECT * FROM produtos")
-        produtos = cursor.fetchall()
 
 #    Mostrar Produtos
+        produtos = cursor.fetchall()
         for produto in produtos:
             texto = f"""ID: {produto[0]}, Categoria: {produto[1]}, Tipo: {produto[2]}, Marca: {produto[3]},Nome: {produto[4]}
-                     """
+                     , codigo: {produto[5]}"""
             label_produto = customtkinter.CTkLabel(self, text=texto, font=("Arial", 18), justify="left")
             label_produto.pack(pady=10)
 
         conexao.close()
 
+#(categoria, tipo, marca, nome, codigo)
 

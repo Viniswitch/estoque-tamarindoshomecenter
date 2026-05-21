@@ -12,8 +12,8 @@ class TelaCadastro(customtkinter.CTkFrame):
         botao_voltar.pack(pady=20)
 
 #    Campos de cadastro
-        entrada = customtkinter.CTkEntry(self, placeholder_text="Nome do Produto")
-        entrada.pack(pady=10)
+        self.nome = customtkinter.CTkEntry(self, placeholder_text="Nome do Produto")
+        self.nome.pack(pady=10)
 
         self.categoria = customtkinter.CTkEntry(self, placeholder_text="Categoria")
         self.categoria.pack(pady=10)
@@ -24,8 +24,8 @@ class TelaCadastro(customtkinter.CTkFrame):
         self.marca = customtkinter.CTkEntry(self, placeholder_text="Marca")
         self.marca.pack(pady=10)
 
-        self.nome = customtkinter.CTkEntry(self, placeholder_text="Modelo/Nome")
-        self.nome.pack(pady=10)
+        self.codigo = customtkinter.CTkEntry(self, placeholder_text="Codigo do Produto")
+        self.codigo.pack(pady=10)
 
 #    Salvar cadastro do produto
         self.botao_salvar = customtkinter.CTkButton(self, text="Salvar Produto", command=self.salvar_produto)
@@ -36,16 +36,18 @@ class TelaCadastro(customtkinter.CTkFrame):
         print(self.tipo.get())
         print(self.marca.get())
         print(self.nome.get())
+        print(self.codigo.get())
 
 #    Adicionando ao banco de dados
         conexao = sqlite3.connect("estoque.db")
         cursor = conexao.cursor()
 
-        cursor.execute("""INSERT INTO produtos (categoria, tipo, marca, nome) VALUES (?, ?, ?, ?) """,
+        cursor.execute("""INSERT INTO produtos (categoria, tipo, marca, nome, codigo) VALUES (?, ?, ?, ?, ?) """,
              (self.categoria.get(),
                         self.tipo.get(),
                         self.marca.get(),
-                        self.nome.get()))
+                        self.nome.get(),
+                        self.codigo.get()))
 
         conexao.commit()
         conexao.close()

@@ -14,7 +14,10 @@ def abrir_cadastro():
     tela_cadastro.pack(fill="both", expand=True)
 
 def abrir_estoque():
+    global tela_estoque
     tela_inicial.pack_forget()
+    tela_estoque.destroy()
+    tela_estoque = TelaEstoque(app, voltar_inicio)
     tela_estoque.pack(fill="both", expand=True)
 
 
