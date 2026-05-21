@@ -12,16 +12,20 @@ class TelaCadastro(customtkinter.CTkFrame):
         botao_voltar.pack(pady=20)
 
 #    Campos de cadastro
-        self.nome = customtkinter.CTkEntry(self, placeholder_text="Nome do Produto")
+        self.nome = customtkinter.CTkEntry(self, placeholder_text="Nome")
         self.nome.pack(pady=10)
 
-        self.categoria = customtkinter.CTkEntry(self, placeholder_text="Categoria")
+        self.categoria = customtkinter.CTkComboBox(self, values = ["Furadeiras e Parafusadeiras",
+                                                            "Chaves/Parafusadeiras de Impacto",
+                                                            "Esmerilhadeiras", "serras", "Lixadeiras", "Impacto e aperto",
+                                                            "Solda e corte termico", "Ar e Pressão", "Medição e Nivelamento",
+                                                            "Construção Pesada", "detalhe e acabamento"])
         self.categoria.pack(pady=10)
 
-        self.tipo = customtkinter.CTkEntry(self, placeholder_text="Tipo")
+        self.tipo = customtkinter.CTkComboBox(self, values = ["Bateria", "Eletrica", "Pneumatica"])
         self.tipo.pack(pady=10)
 
-        self.marca = customtkinter.CTkEntry(self, placeholder_text="Marca")
+        self.marca = customtkinter.CTkComboBox(self, values = ["NewBeat", "StarTool", "Bosch", "Vonder", "Tramontina"])
         self.marca.pack(pady=10)
 
         self.codigo = customtkinter.CTkEntry(self, placeholder_text="Codigo do Produto")

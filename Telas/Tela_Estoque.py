@@ -28,5 +28,4 @@ class TelaEstoque(customtkinter.CTkFrame):
 
         conexao.close()
 
-#(categoria, tipo, marca, nome, codigo)
 
