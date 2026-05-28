@@ -90,7 +90,7 @@ class TelaCadastro(customtkinter.CTkFrame):
                         self.quantidade.get()))
         conexao.commit()
         conexao.close()
-        print("Produto salvo!")
+        messagebox.showinfo("Sucesso","Produto salvo com sucesso!")
         self.nome.delete(0, "end")
         self.codigo.delete(0, "end")
         self.quantidade.delete(0, "end")
