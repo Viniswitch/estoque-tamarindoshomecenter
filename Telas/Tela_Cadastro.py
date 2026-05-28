@@ -67,34 +67,47 @@ class TelaCadastro(customtkinter.CTkFrame):
         self.botao_salvar.grid(row=8, column=0, columnspan=2, pady=(25, 10))
 
     def salvar_produto(self):
+
+    #    Pegando os dados
         categoria = self.categoria.get()
         tipo = self.tipo.get()
         marca = self.marca.get()
         nome = self.nome.get()
         codigo = self.codigo.get()
         quantidade = self.quantidade.get()
+
+    #    Verificação dos dados
         if categoria == "" or tipo == "" or marca == "" or nome == "" or codigo == "" or quantidade == "":
             messagebox.showerror("Erro","Preencha todos os campos!")
             return
 
-    #    Adicionando ao banco de dados
-        conexao = sqlite3.connect("estoque.db")
+    #    Conectando ao banco de dados
+        conexao = sqlite3.connect("Banco_De_Dados/estoque.db")
         cursor = conexao.cursor()
-        cursor.execute("""INSERT INTO produtos (categoria, tipo, marca, nome, codigo, quantidade)
-                        VALUES (?, ?, ?, ?, ?, ?) """,
-             (self.categoria.get(),
-                        self.tipo.get(),
-                        self.marca.get(),
-                        self.nome.get(),
-                        self.codigo.get(),
-                        self.quantidade.get()))
+
+    #    Verificando se o "produto" já existe no banco de dados
+        cursor.execute("SELECT quantidade FROM produtos WHERE codigo = ?",(codigo,))
+        produto_existente = cursor.fetchone()
+
+    #    Caso já exista no banco de dados, atualiza a quantidade do "produto"
+        if produto_existente:
+            quantidade_atual = int(produto_existente[0])
+            nova_quantidade = quantidade_atual + int(quantidade)
+            cursor.execute("UPDATE produtos SET quantidade = ? WHERE codigo = ?",(nova_quantidade, codigo))
+            messagebox.showinfo(title = "Atualizado", message = "Quantidade atualizada!")
+
+    #    Caso não exista no banco de dados, adiciona
+        else:
+            cursor.execute("""INSERT INTO produtos(categoria, tipo, marca, nome, codigo, quantidade)
+                              VALUES (?, ?, ?, ?, ?, ?)""",(categoria,tipo,marca,nome,codigo,quantidade))
+            messagebox.showinfo(title="Sucesso", message="Produto salvo com sucesso!")
         conexao.commit()
         conexao.close()
-        messagebox.showinfo("Sucesso","Produto salvo com sucesso!")
+
+    #    Limpar campos
         self.nome.delete(0, "end")
         self.codigo.delete(0, "end")
         self.quantidade.delete(0, "end")
         self.categoria.set("")
         self.tipo.set("")
         self.marca.set("")
-

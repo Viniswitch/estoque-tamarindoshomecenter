@@ -1,6 +1,6 @@
 import sqlite3
 
-conexao = sqlite3.connect("estoque.db")
+conexao = sqlite3.connect("Banco_De_Dados/estoque.db")
 cursor = conexao.cursor()
 
 

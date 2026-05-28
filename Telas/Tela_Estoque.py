@@ -12,19 +12,32 @@ class TelaEstoque(customtkinter.CTkFrame):
         botao_voltar.pack(pady=20)
 
 #    Banco de dados
-        conexao = sqlite3.connect("estoque.db")
+        conexao = sqlite3.connect("Banco_De_Dados/estoque.db")
         cursor = conexao.cursor()
 
 #    Buscar produtos
         cursor.execute("SELECT * FROM produtos")
-
-#    Mostrar Produtos
         produtos = cursor.fetchall()
+
+#    Scrollable Frame
+        scroll = customtkinter.CTkScrollableFrame(self)
+        scroll.pack(fill="both", expand=True, padx=20, pady=20)
+
+#    Criando os Cards
         for produto in produtos:
-            texto = f"""ID: {produto[0]}, Categoria: {produto[1]}, Tipo: {produto[2]}, Marca: {produto[3]},Nome: {produto[4]}
-                     , codigo: {produto[5]}, quantidade: {produto[6]}"""
-            label_produto = customtkinter.CTkLabel(self, text=texto, font=("Arial", 18), justify="left")
-            label_produto.pack(pady=10)
+            frame_produto = customtkinter.CTkFrame(scroll)
+            frame_produto.pack(fill="x", padx=10, pady=10)
+
+            nome = customtkinter.CTkLabel(frame_produto,text=f"Nome: {produto[4]}")
+            nome.pack(anchor="w", padx=10, pady=2)
+
+            categoria = customtkinter.CTkLabel(frame_produto,text=f"Categoria: {produto[1]}")
+            categoria.pack(anchor="w", padx=10, pady=2)
+
+            quantidade = customtkinter.CTkLabel(frame_produto,text=f"Quantidade: {produto[6]}")
+            quantidade.pack(anchor="w", padx=10, pady=2)
+
+
 
         conexao.close()
 
